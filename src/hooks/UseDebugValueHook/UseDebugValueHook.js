@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useDebugValue, useEffect, useState } from "react";
 
 function getSavedValue(key, initialValue) {
   const savedValue = JSON.parse(localStorage.getItem(key));
@@ -12,6 +12,9 @@ function useLocalStorage(key, initialValue) {
     return getSavedValue(key, initialValue);
   });
 
+  useDebugValue(value, (v) => getValueSlowly(v)); // now this function will only gets called when we are debugging
+  // only used for custom hooks
+  //The useDebugValue hook is simply used to print out debug information for custom hooks.
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));
   }, [value]);
@@ -19,3 +22,8 @@ function useLocalStorage(key, initialValue) {
 }
 
 export default useLocalStorage;
+
+function getValueSlowly(value) {
+  for (let i = 0; i < 30000000; i++) {}
+  return value;
+}

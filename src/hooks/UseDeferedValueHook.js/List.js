@@ -6,7 +6,7 @@ function List({ input }) {
   const deferredInput = useDeferredValue(input);
   // it is like debouncing but there is not hardcoded time react does the time for us,
   // it is like setting a veriable as low priority it will run after some time after all the high priority is done
-
+  // It allows you to postpone the rendering of a component until a specific condition is met.
   const list = useMemo(() => {
     const l = [];
     for (let i = 0; i < LIST_SIZE; i++) {
@@ -18,3 +18,8 @@ function List({ input }) {
 }
 
 export default List;
+
+// The useDeferredValue hook lets us to solve the slow render issue by adding a delay
+// before some information is calculated. This works similarly to debouncing and throttling
+//  in that our deferred value is calculated only after the necessary state modifications have
+//   completed.
